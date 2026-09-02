@@ -82,6 +82,21 @@ class _TelaSomaState extends State<TelaSoma>{
   }
 
 
+    void tudo(){
+
+    double n1=double.tryParse(distanciaController.text) ?? 0;
+    double n2=double.tryParse(velocidadeController.text) ?? 0;
+    double n3=double.tryParse(consumoController.text) ?? 0;
+    double n4=double.tryParse(quantidadeController.text) ?? 0;
+
+    setState((){
+      tempoCorrida = n1 / n2;
+      combustivelNecessario = tempoCorrida * n3;
+      combustivelRestante = n4 - combustivelNecessario;
+      energiaCarro = n4 - combustivelNecessario;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context){
@@ -101,90 +116,113 @@ class _TelaSomaState extends State<TelaSoma>{
           children: [
 
             TextField(
-              controller: numero1Controller,
+              controller: distanciaController,
               decoration: const InputDecoration(
                 labelText: "Distancia (KM)",
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
 
             
             TextField(
-              controller: numero2Controller,
+              controller: velocidadeController,
               decoration: const InputDecoration(
                 labelText: "Velocidade do Carro",
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
 
 
             TextField(
-              controller: numero3Controller,
+              controller: consumoController,
               decoration: const InputDecoration(
                 labelText: "Consumo combustivel (p/h)",
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
 
 
             TextField(
-              controller: numero3Controller,
+              controller: quantidadeController,
               decoration: const InputDecoration(
                 labelText: "Quantidade inicial de combustivel",
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
 
-            
+            Row(children: [
+
             ElevatedButton(
-              onPressed:  simulado,
+              onPressed:  tempo,
               child: const Text("Calcular Tempo"),
             ),
             const SizedBox(height: 30),
 
             ElevatedButton(
-              onPressed:  simulado,
+              onPressed:  combustivel,
               child: const Text("Calcular Combustivel"),
             ),
             const SizedBox(height: 30),
+              ],
+            ),
+
+            Row(children: [
 
             ElevatedButton(
-              onPressed:  simulado,
+              onPressed:  restante,
               child: const Text("Verificar Corrida"),
             ),
             const SizedBox(height: 30),
 
             ElevatedButton(
-              onPressed:  simulado,
+              onPressed:  energia,
               child: const Text("Calcular Energia"),
             ),
             const SizedBox(height: 30),
-
+              ],
+            ),
+            
             ElevatedButton(
-              onPressed:  simulado,
+              onPressed:  tudo,
               child: const Text("Calcular Tudo"),
             ),
             const SizedBox(height: 30),
 
             // Exibe o resultado atual
             Text(
-              "Média de Gols por Partida: $mediaGols",
+              "Tempo de Corrida: $tempoCorrida",
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
 
-              Text(
-              "Média de Participações: $mediaParticipacoes",
+            Text(
+              "Combustivel necessário: $combustivelNecessario",
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            Text(
+              "Combustivel restante: $combustivelRestante",
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            Text(
+              "Energia do carro: $energiaCarro",
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
